@@ -47,7 +47,7 @@ class APIClient():
 
         return response.json(), response.status_code
 
-def run_module():
+def main():
     module_args = dict(
         api_endpoint = dict(type=str, required=True),
         api_token = dict(type=str, required=True),
@@ -122,9 +122,6 @@ def validate_input(module):
             module.fail_json(
                 msg=f"invalid cidr range in allowed_cidrs: {cidr}"
             )
-
-def main():
-    run_module()
 
 if __name__ == '__main__':
     main()
