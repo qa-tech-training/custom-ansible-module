@@ -1,9 +1,21 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
+DOCUMENTATION = r'''
+module: custom.bankx.sandbox
+description: provision development sandboxes via the internal sanbox api
+parameters:
+  api-endpoint: 
+    type: string
+    description: the host + port of the API server
+  api-token: 
+    type: string
+    description: bearer token for the API server 
+'''
 
 from ansible.module_utils.basic import AnsibleModule
 import re
 import requests
+from uuid import uuid4
 from ansible.module_utils.urls import fetch_url
 
 class APIClient():
@@ -24,7 +36,8 @@ class APIClient():
             owner_email = self.module.params['owner_email'],
             size = self.module.params["size"],
             ttl_days = self.module.params["ttl_days"],
-            allowed_cidrs = self.module.params["allowed_cidrs"]
+            allowed_cidrs = self.module.params["allowed_cidrs"],
+            id = str(uuid4())
         )    
 
         url = self.base_url + ('' if uri_path.startswith('/') else '/') + uri_path
