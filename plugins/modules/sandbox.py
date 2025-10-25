@@ -28,7 +28,7 @@ class APIClient():
         headers = {
             "Authorization": f"Bearer {self.token}",
             "Content-Type": "application/json",
-            "If-Match": self.module.params.get("etag", "")
+            "If-Match": self.module.params.get("resource_version", "")
         }
 
         data = dict(
@@ -69,7 +69,7 @@ def main():
         size = dict(type=str, required=True),
         ttl_days = dict(type=int, required=True),
         allowed_cidrs = dict(type=list[str], required=True),
-        etag = dict(type=str, required=False),
+        resource_version = dict(type=str, required=False),
         state = dict(type=str, required=True, choices=['present', 'absent']),
         sandbox_id = dict(type=str, required=False)
     )
